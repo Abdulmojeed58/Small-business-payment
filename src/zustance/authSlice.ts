@@ -54,14 +54,15 @@ export const useAuth = create<any>((set: any, get: any) => ({
     try {
       const res = await axios.post("/api/v1/auth/login", payload);
       console.log(res.data.data.access_token);
-      console.log("done")
-      setSession("Mjay" as string);
+
+      setSession(res.data.data.access_token);
+      console.log(res)
 
       set((state: any) => ({
         ...state,
         auth: {
           ...state.auth,
-          token: res.data.token,
+          token: res.data.data.access_token,
           isAuthenticated: true,
           user: res.data.user,
           loading: false,
@@ -88,9 +89,9 @@ export const useAuth = create<any>((set: any, get: any) => ({
 export const handleError = (error: any) => {
   const message = error?.data?.message;
 
-//   if (message?.includes("")) {
-//     return "";
-//   }
+  //   if (message?.includes("")) {
+  //     return "";
+  //   }
 
   if (message) {
     return message;

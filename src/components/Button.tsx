@@ -35,11 +35,11 @@ const Button: React.FC<buttonProps> = ({
       className={`rounded-[10px] bg-primary flex items-center justify-center gap-[16px] h-[60px] w-full`}
     >
       <span className="font-Montserrat text-[20px] font-[600] leading-normal text-secondary">
-        {label}
+        {!loading && label}
         {loading && (
-          <>
-            <div className="bg-red-400 w-[20px] h-[20px] rounded-full" />
-          </>
+          <div className="flex justify-center items-center">
+            <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-gray-900"></div>
+          </div>
         )}
       </span>
     </button>

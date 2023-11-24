@@ -26,7 +26,7 @@ const Input: React.FC<InputProps> = ({
       <input
         type={type}
         id={id}
-        className={`rounded-[10px] border  w-full h-[60px] block ${
+        className={`rounded-[10px] border  w-full h-[60px] block px-5 text-[20px] ${
           isError
             ? "border-red-400 outline-red-400"
             : "border-primary outline-primary"

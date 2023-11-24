@@ -1,4 +1,5 @@
 import AuthLayout from "@/components/AuthLayout";
+import PrivateRoute from "@/components/PrivateRoute";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
@@ -14,5 +15,9 @@ export default function App({ Component, pageProps }: AppProps) {
       </AuthLayout>
     );
   }
-  return <Component {...pageProps} />;
+  return (
+    <PrivateRoute>
+      <Component {...pageProps} />
+    </PrivateRoute>
+  );
 }

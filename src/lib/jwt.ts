@@ -1,19 +1,19 @@
-import jwt_decode from "jwt-decode";
+// import jwt_decode from "jwt-decode";
 import { authInstance } from "./axios";
 
 // ----------------------------------------------------------------------
 
-const isValidToken = (accessToken) => {
+const isValidToken = (accessToken: string) => {
   if (!accessToken) {
     return false;
   }
-  const decoded = jwt_decode(accessToken);
-  const currentTime = Date.now() / 1000;
+  // const decoded = jwt_decode(accessToken);
+  // const currentTime = Date.now() / 1000;
 
-  return decoded.exp > currentTime;
+  // return decoded.exp > currentTime;
 };
 
-const handleTokenExpired = (exp) => {
+const handleTokenExpired = (exp: number) => {
   let expiredTimer;
 
   window.clearTimeout(expiredTimer);
@@ -27,9 +27,7 @@ const handleTokenExpired = (exp) => {
   }, timeLeft);
 };
 
-const setSession = (accessToken) => {
-  console.log("outside")
-  console.log(accessToken)
+const setSession = (accessToken?: string) => {
   if (accessToken) {
     if (typeof window !== "undefined") {
       window.localStorage.setItem("accessToken", accessToken);
@@ -38,15 +36,14 @@ const setSession = (accessToken) => {
       // set token to authInstance
       authInstance.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
       // This function below will handle when token is expired
-      const { exp } = jwt_decode(accessToken);
-      handleTokenExpired(exp);
-      console.log("yes")
+      // const { exp } = jwt_decode(accessToken);
+      // handleTokenExpired(exp);
     }
   } else {
     if (typeof window !== "undefined") {
       window.localStorage.removeItem("accessToken");
     }
-    console.log("else")
+
     // delete from the two instance
     // delete axios.defaults.headers.common.Authorization;
     delete authInstance.defaults.headers.common.Authorization;
