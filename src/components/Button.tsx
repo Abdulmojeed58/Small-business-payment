@@ -34,7 +34,7 @@ const Button: React.FC<buttonProps> = ({
       {...buttonProps}
       className={`rounded-[10px] bg-primary flex items-center justify-center gap-[16px] h-[60px] w-full`}
     >
-      <span className="font-Montserrat text-[20px] font-[600] leading-normal text-secondary">
+      <span className="font-Montserrat text-[15px] lg:text-[20px] font-[600] leading-normal text-secondary">
         {!loading && label}
         {loading && (
           <div className="flex justify-center items-center">

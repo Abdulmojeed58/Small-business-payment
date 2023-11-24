@@ -19,7 +19,7 @@ const Input: React.FC<InputProps> = ({
     <div>
       <label
         htmlFor={id}
-        className="font-Montserrat text-secondary text-[20px] font-[500] leading-normal mb-[10px] block"
+        className="font-Montserrat text-secondary text-[15px] lg:text-[20px] font-[500] leading-normal mb-[10px] block"
       >
         {label}
       </label>
@@ -51,7 +51,7 @@ export const CheckBox: React.FC<InputProps> = ({
       <input type={type} id={id} {...inputProps} />
       <label
         htmlFor={id}
-        className="font-Montserrat text-[20px] font-[400] leading-normal text-lightSecondary ml-[16px]"
+        className="font-Montserrat text-[15px] lg:text-[20px] font-[400] leading-normal text-lightSecondary ml-[16px]"
       >
         {label}
       </label>

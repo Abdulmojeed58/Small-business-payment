@@ -4,14 +4,15 @@ import Link from "next/link";
 import { nav } from "@/utils/constant";
 import { PATHS } from "@/routes/path";
 import Modal from "./Modal";
+import useNav from "@/zustance/navSlice";
 
 const Drawer = () => {
-  const a = true;
+  const { setToggleNav, isNavOpen } = useNav();
   return (
-    <Modal className={`${a ? "hidden" : ""}`}>
-      <aside className="block lg:hidden fixed bg-white right-0 top-0 bottom-0 h-full w-[500px] max-w-full px-7">
+    <Modal className={`${isNavOpen ? "visible" : "hidden"}`}>
+      <aside className="block lg:hidden fixed bg-white right-0 top-0 bottom-0 h-full w-[500px] max-w-full px-7 z-40">
         <header className="py-5 flex justify-end mb-5">
-          <button onClick={() => {}}>
+          <button onClick={() => setToggleNav(false)}>
             <CloseSvg />
           </button>
         </header>
@@ -22,6 +23,7 @@ const Drawer = () => {
                 <Link
                   className="text-secondary font-Montserrat text-[20px] font-[500] leading-normal"
                   href={path}
+                  onClick={() => setToggleNav(false)}
                 >
                   {name}
                 </Link>
@@ -34,12 +36,14 @@ const Drawer = () => {
           <Link
             className="block text-secondary text-[20px] font-[500] leading-normal mb-[30px]"
             href={PATHS.auth.login}
+            onClick={() => setToggleNav(false)}
           >
             Login
           </Link>
           <Link
             className="py-[8px] px-[24px] bg-primary rounded-[8px] flex h-[60px] justify-center items-center"
             href="/"
+            onClick={() => setToggleNav(false)}
           >
             <span className="font-Montserrat text-[20px] font-[600] leading-normal whitespace-nowrap">
               Get Started
