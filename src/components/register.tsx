@@ -6,10 +6,8 @@ import { PATHS } from "@/routes/path";
 import { useLoginForm } from "@/hooks/useLoginForm";
 import { useAuth } from "@/zustance/authSlice";
 import GuestGuard from "./GuestGuide";
-import { useRouter } from "next/router";
 
-const Login = () => {
-  const router = useRouter();
+const Register = () => {
   const { register, setValue, handleSubmit, errors } = useLoginForm();
 
   const { login, auth } = useAuth();
@@ -31,7 +29,7 @@ const Login = () => {
         <div className="w-[672px] max-w-[90%] mx-auto">
           <div className="mb-[50px] lg:mb-[74px] text-center">
             <h2 className="capitalize text-primary text-[25px] lg:text-[32px] font-[700] leading-normal mb-[10px] lg:mb-[15px]">
-              secure login
+              create an account
             </h2>
             <p className="text-secondary text-[15px] lg:text-[20px] font-[400] leading-normal">
               It&apos;s time for business
@@ -44,6 +42,24 @@ const Login = () => {
           >
             <div className="flex flex-col gap-[20px] lg:gap-[40px] border-b border-dashed border-primary pb-[30px] lg:pb-[56px]  mb-[20px] lg:mb-[32px]">
               <Input
+                id="firstname"
+                label="Firstname"
+                type="text"
+                // isError={!!errors.email?.message}
+                // inputProps={{
+                //   ...register("email"),
+                // }}
+              />
+              <Input
+                id="lastname"
+                label="Lastname"
+                type="text"
+                // isError={!!errors.email?.message}
+                // inputProps={{
+                //   ...register("email"),
+                // }}
+              />
+              <Input
                 id="email"
                 label="Email or Phone Number"
                 type="email"
@@ -51,6 +67,24 @@ const Login = () => {
                 inputProps={{
                   ...register("email"),
                 }}
+              />
+              <Input
+                id="tel"
+                label="Phone number"
+                type="tel"
+                // isError={!!errors.email?.message}
+                // inputProps={{
+                //   ...register("email"),
+                // }}
+              />
+              <Input
+                id="age"
+                label="Age"
+                type="age"
+                // isError={!!errors.email?.message}
+                // inputProps={{
+                //   ...register("email"),
+                // }}
               />
               <Input
                 id="password"
@@ -63,23 +97,7 @@ const Login = () => {
               />
             </div>
             <Button
-              label={
-                <div className="flex items-center gap-[16px]">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="24"
-                    viewBox="0 0 25 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M17.5 9V7C17.5 4.2 15.3 2 12.5 2C9.7 2 7.5 4.2 7.5 7V9C5.8 9 4.5 10.3 4.5 12V19C4.5 20.7 5.8 22 7.5 22H17.5C19.2 22 20.5 20.7 20.5 19V12C20.5 10.3 19.2 9 17.5 9ZM9.5 7C9.5 5.3 10.8 4 12.5 4C14.2 4 15.5 5.3 15.5 7V9H9.5V7Z"
-                      fill="#1C1C1C"
-                    />
-                  </svg>
-                  Secure Login
-                </div>
-              }
+              label="Create an account"
               variant="contained"
               type="submit"
               loading={loading}
@@ -87,20 +105,9 @@ const Login = () => {
           </form>
           <div className="mt-[48px] flex items-center justify-between">
             <CheckBox id="remember" label="Remember me" type="checkbox" />
-            <Link
-              href={PATHS.auth.forgotPassword}
-              className="font-Montserrat text-lightSecondary text-[15px] lg:text-[20px] font-[400] leading-normal"
-            >
-              Forgot Password?
-            </Link>
           </div>
           <div className="mt-[40px] lg:mt-[80px] px-[7px]">
-            <Button
-              label="Create an account instead"
-              variant="contained"
-              type="button"
-              onClick={() => router.push(PATHS.auth.register)}
-            />
+            <Button label="Login instead" variant="contained" type="button" />
           </div>
         </div>
       </section>
@@ -108,4 +115,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

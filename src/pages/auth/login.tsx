@@ -1,7 +1,5 @@
 
 // Components
-// import Login from '@/features/auth/sections/Login';
-
 import Login from "@/components/Login";
 
 

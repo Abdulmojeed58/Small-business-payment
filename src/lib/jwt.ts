@@ -7,10 +7,12 @@ const isValidToken = (accessToken: string) => {
   if (!accessToken) {
     return false;
   }
-  // const decoded = jwt_decode(accessToken);
-  // const currentTime = Date.now() / 1000;
 
-  // return decoded.exp > currentTime;
+  // @ts-ignore
+  const decoded = jwt_decode(accessToken);
+  const currentTime = Date.now() / 1000;
+
+  return decoded.exp > currentTime;
 };
 
 const handleTokenExpired = (exp: number) => {
@@ -36,8 +38,9 @@ const setSession = (accessToken?: string) => {
       // set token to authInstance
       authInstance.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
       // This function below will handle when token is expired
-      // const { exp } = jwt_decode(accessToken);
-      // handleTokenExpired(exp);
+      // @ts-ignore
+      const { exp } = jwt_decode(accessToken);
+      handleTokenExpired(exp);
     }
   } else {
     if (typeof window !== "undefined") {
