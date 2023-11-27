@@ -24,6 +24,9 @@ export const useAuth = create<any>((set: any, get: any) => ({
     token: getSession(),
     isInitialized: false,
     isAuthenticated: !!getSession(),
+    isRegister: false,
+    isOtpSuccess: false,
+    currentEmail: null,
     loading: false,
     user: null,
     error: null,
@@ -56,7 +59,7 @@ export const useAuth = create<any>((set: any, get: any) => ({
       console.log(res.data.data.access_token);
 
       setSession(res.data.data.access_token);
-      console.log(res)
+      console.log(res);
 
       set((state: any) => ({
         ...state,
@@ -77,6 +80,106 @@ export const useAuth = create<any>((set: any, get: any) => ({
           error: handleError(error),
           token: null,
           isAuthenticated: false,
+          loading: false,
+        },
+      }));
+    } finally {
+      get().auth.setLoading(false);
+    }
+  },
+  register: async (data: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    age: string;
+    password: string;
+  }) => {
+    get().auth.setLoading(true);
+
+    const { firstName, lastName, email, phoneNumber, age, password } = data;
+
+    const payload = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      age,
+      password,
+    };
+
+    try {
+      const res = await axios.post("api/v1/user/register", payload);
+      // console.log(res.data.data.access_token);
+
+      // setSession(res.data.data.access_token);
+      console.log(res);
+
+      set((state: any) => ({
+        ...state,
+        auth: {
+          ...state.auth,
+          isRegister: true,
+          currentEmail: email,
+          loading: false,
+        },
+      }));
+    } catch (error) {
+      setSession();
+      set((state: any) => ({
+        ...state,
+        auth: {
+          ...state.auth,
+          error: handleError(error),
+          isRegister: false,
+          token: null,
+          isAuthenticated: false,
+          loading: false,
+        },
+      }));
+    } finally {
+      get().auth.setLoading(false);
+    }
+  },
+  otp: async (data: string) => {
+    get().auth.setLoading(true);
+    const mail = get().auth.currentEmail;
+
+    const payload = { otp: data, email: mail };
+
+    try {
+      const res = await axios.post("api/v1/auth/activate", payload);
+      console.log(res.data.data.access_token);
+
+      setSession(res.data.data.access_token);
+      console.log(res.data.data.user.firstName);
+
+      set((state: any) => ({
+        ...state,
+        auth: {
+          ...state.auth,
+          // token: res.data.data.access_token,
+          // isAuthenticated: true,
+          isRegister: false,
+          currentEmail: null,
+          isOtpSuccess: !!res.data.data.user.firstName,
+          // user: res.data.user,
+          loading: false,
+        },
+      }));
+    } catch (error) {
+      setSession();
+      console.log(error);
+      set((state: any) => ({
+        ...state,
+        auth: {
+          ...state.auth,
+          error: handleError(error),
+          token: null,
+          isAuthenticated: false,
+          isOtpSuccess: false,
+          // isRegister: false,
+          // currentEmail: null,
           loading: false,
         },
       }));

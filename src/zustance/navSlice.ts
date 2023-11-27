@@ -4,6 +4,8 @@ interface INav {
   isNavOpen: boolean;
   isModalOpen: boolean;
   setToggleNav: (value: boolean) => void;
+  isSidebar: boolean;
+  setSidebar: (value: boolean) => void;
 }
 
 const useNav = create<INav>((set, get) => ({
@@ -14,7 +16,12 @@ const useNav = create<INav>((set, get) => ({
       ...state,
       isNavOpen: value,
     })),
+  isSidebar: true,
+  setSidebar: (value: boolean) =>
+    set((state: any) => ({
+      ...state,
+      isSidebar: value,
+    })),
 }));
 
-
-export default useNav
+export default useNav;

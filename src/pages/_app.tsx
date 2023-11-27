@@ -1,4 +1,5 @@
 import AuthLayout from "@/components/AuthLayout";
+import DashboardLayout from "@/components/DashboardLayout";
 import PrivateRoute from "@/components/PrivateRoute";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
@@ -13,6 +14,16 @@ export default function App({ Component, pageProps }: AppProps) {
       <AuthLayout>
         <Component {...pageProps} />
       </AuthLayout>
+    );
+  }
+
+  if (router.pathname.includes("dashboard")) {
+    return (
+      <PrivateRoute>
+        <DashboardLayout>
+          <Component {...pageProps} />
+        </DashboardLayout>
+      </PrivateRoute>
     );
   }
   return (

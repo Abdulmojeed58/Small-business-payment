@@ -2,10 +2,11 @@ import React from "react";
 
 interface InputProps {
   id: string;
-  label: string;
+  label?: string;
   type: string;
   isError?: boolean;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+  inputClassName?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -14,6 +15,7 @@ const Input: React.FC<InputProps> = ({
   type,
   isError,
   inputProps,
+  inputClassName,
 }) => {
   return (
     <div>
@@ -26,7 +28,7 @@ const Input: React.FC<InputProps> = ({
       <input
         type={type}
         id={id}
-        className={`rounded-[10px] border  w-full h-[60px] block px-5 text-[20px] ${
+        className={`${inputClassName} rounded-[10px] border  w-full h-[60px] block px-5 text-[20px] ${
           isError
             ? "border-red-400 outline-red-400"
             : "border-primary outline-primary"

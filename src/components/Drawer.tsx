@@ -57,7 +57,7 @@ const Drawer = () => {
 
 export default Drawer;
 
-const CloseSvg = () => {
+export const CloseSvg = () => {
   return (
     <svg
       style={{ width: "15px", height: "15px", strokeWidth: "1.25px" }}

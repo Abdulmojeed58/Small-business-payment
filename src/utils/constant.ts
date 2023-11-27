@@ -26,3 +26,13 @@ export const nav = [
 export const config = {
   authApiBaseUrl: process.env.AUTH_API_BASE_URL,
 };
+
+export const invoice = [
+  {
+    transactionId: "#12415346512",
+    date: "2/5/2022 06:24 AM",
+    from: "Chidinma",
+    amount: "45,000",
+    status: "CANCELED",
+  },
+];

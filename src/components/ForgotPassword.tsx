@@ -7,7 +7,7 @@ const ForgotPassword = () => {
     <section className="flex flex-col items-center justify-center font-Montserrat min-h-[calc(100vh-305px)] relative z-0 my-20">
       <div className="w-[672px] max-w-[90%] mx-auto">
         <div className="text-center mb-[40px]">
-          <h2 className="capitalize text-primary text-[32px] font-[700] leading-normal">
+          <h2 className="capitalize text-primary text-[25px] lg:text-[32px] font-[600] lg:font-[700] leading-normal">
             Forgot Password
           </h2>
         </div>

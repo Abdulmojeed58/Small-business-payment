@@ -30,7 +30,7 @@ const Login = () => {
       <section className="flex flex-col items-center justify-center font-Montserrat min-h-full my-20 relative z-0">
         <div className="w-[672px] max-w-[90%] mx-auto">
           <div className="mb-[50px] lg:mb-[74px] text-center">
-            <h2 className="capitalize text-primary text-[25px] lg:text-[32px] font-[700] leading-normal mb-[10px] lg:mb-[15px]">
+            <h2 className="capitalize text-primary text-[25px] lg:text-[32px] font-[600] lg:font-[700] leading-normal mb-[10px] lg:mb-[15px]">
               secure login
             </h2>
             <p className="text-secondary text-[15px] lg:text-[20px] font-[400] leading-normal">
