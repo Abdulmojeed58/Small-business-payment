@@ -11,13 +11,13 @@ const Signup = () => {
   const router = useRouter();
   const { register, setValue, handleSubmit, errors } = useRegisterForm();
 
-  const { register: signup, auth } = useAuth();
+  const { register: signin, auth } = useAuth();
   const { error, loading, clearError } = auth;
 
   const onSubmit = async (data: any) => {
     try {
       // Register the user
-      await signup(data);
+      await signin(data);
       router.push("/auth/otp");
     } catch (error) {
       console.log("error", error);
