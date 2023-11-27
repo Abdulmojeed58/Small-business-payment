@@ -74,7 +74,7 @@ export const useAuth = create<any>((set: any, get: any) => ({
         },
       }));
     } catch (error: any) {
-      console.log(error?.message, "Login error");
+      console.log(error?.message, "Login error login");
       setSession();
       set((state: any) => ({
         ...state,
@@ -156,7 +156,6 @@ export const useAuth = create<any>((set: any, get: any) => ({
       console.log(res.data.data.access_token);
 
       setSession(res.data.data.access_token);
-      console.log(res.data.data.user.firstName);
 
       set((state: any) => ({
         ...state,
@@ -166,7 +165,7 @@ export const useAuth = create<any>((set: any, get: any) => ({
           // isAuthenticated: true,
           isRegister: false,
           currentEmail: null,
-          isOtpSuccess: !!res.data.data.user.firstName,
+          isOtpSuccess: res.data.message === "User Activation Successful",
           message: res.data.message,
           // user: res.data.user,
           loading: false,
@@ -196,10 +195,16 @@ export const useAuth = create<any>((set: any, get: any) => ({
 
 export const handleError = (error: string) => {
   if (error.includes("Request failed with status code 404")) {
+    return "Incorrect Email";
+  }
+  if (error.includes("Request failed with status code 401")) {
     return "Incorrect Email or Password";
   }
   if (error.includes("Cannot read properties of null (reading 'firstName')")) {
     return "Incorrect OTP";
+  }
+  if (error.includes("timeout of 20000ms exceeded" || "Network Error")) {
+    return "Failed to login, Please check your Network connection";
   }
 
   if (error) {
