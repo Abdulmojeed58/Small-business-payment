@@ -1,1 +1,1 @@
-export {default as Signup} from "./Register";
+export {default as Signup} from "./Signup";
