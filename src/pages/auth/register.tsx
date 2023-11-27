@@ -1,3 +1,4 @@
+// @ts-ignore  
 import Signup from "../../components/Register";
 
 const RegisterPage = () => {
