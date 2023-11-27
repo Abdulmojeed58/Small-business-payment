@@ -7,7 +7,7 @@ import { useAuth } from "@/zustance/authSlice";
 import { useRegisterForm } from "@/hooks/useRegisterForm";
 import { useRouter } from "next/router";
 
-const Register = () => {
+const Signup = () => {
   const router = useRouter();
   const { register, setValue, handleSubmit, errors } = useRegisterForm();
 
@@ -122,4 +122,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Signup;
