@@ -16,7 +16,7 @@ const useNav = create<INav>((set, get) => ({
       ...state,
       isNavOpen: value,
     })),
-  isSidebar: true,
+  isSidebar: false,
   setSidebar: (value: boolean) =>
     set((state: any) => ({
       ...state,

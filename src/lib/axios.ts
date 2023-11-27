@@ -14,7 +14,7 @@ export const handleUnauthorizedRequest = (error: any) => {
 
 export const authInstance = axios.create({
   baseURL: "https://payments-dashboard-hackathonn.onrender.com",
-  timeout: 10000,
+  timeout: 20000,
 });
 
 authInstance.interceptors.response.use(

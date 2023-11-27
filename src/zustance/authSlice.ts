@@ -59,7 +59,8 @@ export const useAuth = create<any>((set: any, get: any) => ({
       console.log(res.data.data.access_token);
 
       setSession(res.data.data.access_token);
-      console.log(res);
+      // console.log(res);
+      console.log(res.data.message);
 
       set((state: any) => ({
         ...state,
@@ -68,16 +69,18 @@ export const useAuth = create<any>((set: any, get: any) => ({
           token: res.data.data.access_token,
           isAuthenticated: true,
           user: res.data.user,
+          message: res.data.message,
           loading: false,
         },
       }));
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error?.message, "Login error");
       setSession();
       set((state: any) => ({
         ...state,
         auth: {
           ...state.auth,
-          error: handleError(error),
+          error: handleError(error?.message),
           token: null,
           isAuthenticated: false,
           loading: false,
@@ -121,16 +124,17 @@ export const useAuth = create<any>((set: any, get: any) => ({
           ...state.auth,
           isRegister: true,
           currentEmail: email,
+          message: res.data.message,
           loading: false,
         },
       }));
-    } catch (error) {
+    } catch (error: any) {
       setSession();
       set((state: any) => ({
         ...state,
         auth: {
           ...state.auth,
-          error: handleError(error),
+          error: handleError(error?.message),
           isRegister: false,
           token: null,
           isAuthenticated: false,
@@ -163,18 +167,19 @@ export const useAuth = create<any>((set: any, get: any) => ({
           isRegister: false,
           currentEmail: null,
           isOtpSuccess: !!res.data.data.user.firstName,
+          message: res.data.message,
           // user: res.data.user,
           loading: false,
         },
       }));
-    } catch (error) {
+    } catch (error: any) {
       setSession();
-      console.log(error);
+      console.log(error?.message);
       set((state: any) => ({
         ...state,
         auth: {
           ...state.auth,
-          error: handleError(error),
+          error: handleError(error?.message),
           token: null,
           isAuthenticated: false,
           isOtpSuccess: false,
@@ -189,15 +194,16 @@ export const useAuth = create<any>((set: any, get: any) => ({
   },
 }));
 
-export const handleError = (error: any) => {
-  const message = error?.data?.message;
+export const handleError = (error: string) => {
+  if (error.includes("Request failed with status code 404")) {
+    return "Incorrect Email or Password";
+  }
+  if (error.includes("Cannot read properties of null (reading 'firstName')")) {
+    return "Incorrect OTP";
+  }
 
-  //   if (message?.includes("")) {
-  //     return "";
-  //   }
-
-  if (message) {
-    return message;
+  if (error) {
+    return error;
   }
 
   return "An error occurred";

@@ -5,12 +5,29 @@ import { useAuth } from "@/zustance/authSlice";
 import { useRouter } from "next/router";
 import { PATHS } from "@/routes/path";
 import { useOtpForm } from "@/hooks/useOtpForm";
+import useMessage from "@/hooks/useMessage";
+import useError from "@/hooks/useError";
+import Link from "next/link";
 
 const Otp = () => {
   const { auth, otp } = useAuth();
-  const { isRegister, currentEmail, isOtpSuccess, loading } = auth;
+  const {
+    isRegister,
+    currentEmail,
+    isOtpSuccess,
+    loading,
+    message,
+    clearMessage,
+    error,
+    clearError,
+  } = auth;
   const router = useRouter();
   const { register, setValue, handleSubmit, errors } = useOtpForm();
+
+  useMessage(message, clearMessage);
+
+  // handle error
+  useError(error, clearError);
 
   useEffect(() => {
     if (!isRegister) {
@@ -94,6 +111,19 @@ const Otp = () => {
             type="submit"
             loading={loading}
           />
+          <p className="text-[15px] lg:text-[20px] font-[400] leading-normal text-[#919191]">
+            Didn&apos;t receive the email?{" "}
+            <button className="text-primary">Click to resend</button>
+          </p>
+          <Link
+            href={PATHS.auth.register}
+            className="flex items-center gap-[12px]"
+          >
+            <BackArrowIcon />
+            <span className="text-[15px] lg:text-[20px] font-[400] leading-normal text-[#919191]">
+              Back to Login
+            </span>
+          </Link>
         </form>
       </div>
     </section>
@@ -101,3 +131,27 @@ const Otp = () => {
 };
 
 export default Otp;
+
+const BackArrowIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <g clipPath="url(#clip0_3_906)">
+        <path
+          d="M21 11H6.83L10.41 7.41L9 6L3 12L9 18L10.41 16.59L6.83 13H21V11Z"
+          fill="#919191"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_3_906">
+          <rect width="24" height="24" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};

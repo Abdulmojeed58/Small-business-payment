@@ -7,13 +7,20 @@ import { useLoginForm } from "@/hooks/useLoginForm";
 import { useAuth } from "@/zustance/authSlice";
 import GuestGuard from "./GuestGuide";
 import { useRouter } from "next/router";
+import useMessage from "@/hooks/useMessage";
+import useError from "@/hooks/useError";
 
 const Login = () => {
   const router = useRouter();
   const { register, setValue, handleSubmit, errors } = useLoginForm();
 
   const { login, auth } = useAuth();
-  const { error, loading, clearError } = auth;
+  const { error, loading, clearError, message, clearMessage } = auth;
+
+  useMessage(message, clearMessage);
+
+  // handle error
+  useError(error, clearError);
 
   const onSubmit = async (data: any) => {
     try {

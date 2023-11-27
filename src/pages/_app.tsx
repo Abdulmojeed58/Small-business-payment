@@ -4,6 +4,7 @@ import PrivateRoute from "@/components/PrivateRoute";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
+import { Toaster } from "react-hot-toast";
 
 // Layouts
 
@@ -12,6 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
   if (router.pathname.includes("auth")) {
     return (
       <AuthLayout>
+        <Toaster />
         <Component {...pageProps} />
       </AuthLayout>
     );
@@ -21,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
     return (
       <PrivateRoute>
         <DashboardLayout>
+          <Toaster />
           <Component {...pageProps} />
         </DashboardLayout>
       </PrivateRoute>
@@ -28,6 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }
   return (
     <PrivateRoute>
+      <Toaster />
       <Component {...pageProps} />
     </PrivateRoute>
   );

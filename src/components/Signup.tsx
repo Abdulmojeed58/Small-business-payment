@@ -6,13 +6,20 @@ import { PATHS } from "@/routes/path";
 import { useAuth } from "@/zustance/authSlice";
 import { useRegisterForm } from "@/hooks/useRegisterForm";
 import { useRouter } from "next/router";
+import useMessage from "@/hooks/useMessage";
+import useError from "@/hooks/useError";
 
 const Signup = () => {
   const router = useRouter();
   const { register, setValue, handleSubmit, errors } = useRegisterForm();
 
   const { register: signin, auth } = useAuth();
-  const { error, loading, clearError } = auth;
+  const { error, loading, clearError, message, clearMessage } = auth;
+
+  useMessage(message, clearMessage);
+
+  // handle error
+  useError(error, clearError);
 
   const onSubmit = async (data: any) => {
     try {
