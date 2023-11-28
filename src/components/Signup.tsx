@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import Input, { CheckBox } from "./Input";
+import React, { useEffect, useState } from "react";
+import Input, { CheckBox, StyledPhoneInput } from "./Input";
 import Button from "./Button";
 import Link from "next/link";
 import { PATHS } from "@/routes/path";
@@ -8,10 +8,13 @@ import { useRegisterForm } from "@/hooks/useRegisterForm";
 import { useRouter } from "next/router";
 import useMessage from "@/hooks/useMessage";
 import useError from "@/hooks/useError";
+import { Controller } from "react-hook-form";
 
 const Signup = () => {
+  // const [inputValue, setInputValue] = useState<string>();
   const router = useRouter();
-  const { register, setValue, handleSubmit, errors } = useRegisterForm();
+  const { register, control, setValue, handleSubmit, errors } =
+    useRegisterForm();
 
   const { register: signin, auth } = useAuth();
   const { error, loading, clearError, message, clearMessage } = auth;
@@ -25,7 +28,9 @@ const Signup = () => {
     try {
       // Register the user
       await signin(data);
-      router.push("/auth/otp");
+      if (!error) {
+        router.push("/auth/otp");
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -71,21 +76,32 @@ const Signup = () => {
             />
             <Input
               id="email"
-              label="Email or Phone Number"
+              label="Email"
               type="email"
               isError={!!errors.email?.message}
               inputProps={{
                 ...register("email"),
               }}
             />
-            <Input
-              id="tel"
-              label="Phone number"
-              type="tel"
-              isError={!!errors.phoneNumber?.message}
-              inputProps={{
-                ...register("phoneNumber"),
-              }}
+            <Controller
+              render={({ field }) => (
+                <StyledPhoneInput
+                  label="Phone Number"
+                  id="phone-number"
+                  isError={!!errors.phoneNumber?.message}
+                  onChange={field.onChange} // Pass the field's onChange function
+                  inputProps={{
+                    value: field.value,
+                    onChange: field.onChange, // Make sure to include onChange in inputProps
+                    onBlur: field.onBlur,
+                    // Any other input props
+                  }}
+                />
+              )}
+              defaultValue=""
+              name="phoneNumber"
+              control={control}
+              rules={{ required: true }}
             />
             <Input
               id="age"

@@ -42,6 +42,7 @@ export const useRegisterForm = () => {
   const {
     register,
     setValue,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
@@ -49,5 +50,5 @@ export const useRegisterForm = () => {
     defaultValues,
   });
 
-  return { register, setValue, handleSubmit, errors };
+  return { register, control, setValue, handleSubmit, errors };
 };

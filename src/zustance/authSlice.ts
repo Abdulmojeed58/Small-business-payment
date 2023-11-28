@@ -134,7 +134,7 @@ export const useAuth = create<any>((set: any, get: any) => ({
         ...state,
         auth: {
           ...state.auth,
-          error: handleError(error?.message),
+          error: handleError(error?.message, "register"),
           isRegister: false,
           token: null,
           isAuthenticated: false,
@@ -193,10 +193,17 @@ export const useAuth = create<any>((set: any, get: any) => ({
   },
 }));
 
-export const handleError = (error: string) => {
+export const handleError = (error: string, type = "") => {
   if (error.includes("Request failed with status code 404")) {
     return "Incorrect Email";
   }
+  if (
+    error.includes("Request failed with status code 500") &&
+    type === "register"
+  ) {
+    return "Email or Phone Number already exist";
+  }
+
   if (error.includes("Request failed with status code 401")) {
     return "Incorrect Email or Password";
   }

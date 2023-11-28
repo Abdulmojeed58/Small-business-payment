@@ -52,7 +52,7 @@ const Login = () => {
             <div className="flex flex-col gap-[20px] lg:gap-[40px] border-b border-dashed border-primary pb-[30px] lg:pb-[56px]  mb-[20px] lg:mb-[32px]">
               <Input
                 id="email"
-                label="Email or Phone Number"
+                label="Email"
                 type="email"
                 isError={!!errors.email?.message}
                 inputProps={{

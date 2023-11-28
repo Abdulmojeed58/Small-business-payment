@@ -1,4 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import "react-phone-number-input/style.css";
+import "react-phone-number-input/style.css";
+import "react-phone-number-input/style.css";
 
 interface InputProps {
   id: string;
@@ -60,3 +66,45 @@ export const CheckBox: React.FC<InputProps> = ({
     </div>
   );
 };
+
+type E164Number = string;
+
+export function StyledPhoneInput({
+  label,
+  inputClassName,
+  id,
+  isError,
+  inputProps,
+  onChange,
+}: {
+  label: string;
+  id: string;
+  inputClassName?: string;
+  isError?: boolean;
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+  onChange: (value?: string | undefined) => void; // Adjusted to accept string type
+}) {
+  return (
+    <div>
+      <label htmlFor={id}>{label}</label>
+      <PhoneInput
+        placeholder="Enter phone number"
+        style={{
+          borderRadius: "10px",
+          width: "100%",
+          height: "60px",
+          padding: "0 5px",
+          fontSize: "20px",
+          ...(isError
+            ? { border: "1px solid #EF4444", outline: "1px solid #EF4444" }
+            : { border: "1px solid #50FE8B", outline: "1px solid #50FE8B" }),
+        }}
+        onChange={(value: string | undefined) => onChange(value)} // Pass value directly
+        inputProps={{
+          id: id,
+          ...inputProps,
+        }}
+      />
+    </div>
+  );
+}
