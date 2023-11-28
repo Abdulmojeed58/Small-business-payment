@@ -42,7 +42,7 @@ const Drawer = () => {
           </Link>
           <Link
             className="py-[8px] px-[24px] bg-primary rounded-[8px] flex h-[60px] justify-center items-center"
-            href="/"
+            href={PATHS.auth.register}
             onClick={() => setToggleNav(false)}
           >
             <span className="font-Montserrat text-[20px] font-[600] leading-normal whitespace-nowrap">
